@@ -1,6 +1,7 @@
 NAME=miaospeed
 BINDIR=bin
-MIHOMO_VERSION=$(shell grep "github.com/metacubex/mihomo" go.mod | awk '{print $2}' || echo "Unknown")
+# mihomo 换成了带 Miu 协议的分支(go.mod 里的 replace),版本取 replace 指向的提交
+MIHOMO_VERSION=$(shell awk '/^replace github.com\/metacubex\/mihomo /{print "miu-" $$NF}' go.mod)
 VERSION=$(shell git describe --tags --abbrev=0 | head -n 1 || echo "Unknown")
 BUILDTIME=$(shell date -u '+%Y-%m-%d_%I:%M:%S%p(UTC%:z)')
 COMMIT=$(shell git rev-parse --short HEAD || echo "Unknown")
